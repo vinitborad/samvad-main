@@ -1,10 +1,11 @@
 "use client"
 
-import { useForm } from "react-hook-form"
-import { useEffect, useState } from "react"
-import {useRouter} from "next/navigation"
-import * as z from "zod"
-import {zodResolver} from "@hookform/resolvers/zod"
+import axios from "axios";
+import { useForm } from "react-hook-form";
+import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
+import * as z from "zod";
+import { zodResolver } from "@hookform/resolvers/zod";
 
 
 import {
@@ -27,6 +28,7 @@ import {
 
 import { Input } from "../ui/input"
 import { Button } from "../ui/button"
+import { FileUpload } from "../file-upload"
 
 
 
@@ -45,7 +47,7 @@ export const InitialModal = () => {
 
     const router = useRouter();
 
-    useEffect(()=> {
+    useEffect(() => {
         setIsMounted(true);
     }, []);
 
@@ -59,15 +61,20 @@ export const InitialModal = () => {
 
     const isLoading = form.formState.isSubmitting;
 
-    const onSubmit =async (values : z.infer<typeof formSchema>) => {
+    const onSubmit = async (values: z.infer<typeof formSchema>) => {
         try {
-            
+            await axios.post("/api/servers", values);
+
+            form.reset();
+            router.refresh();
+            window.location.reload();
+
         } catch (error) {
             console.log(error)
         }
     }
 
-    if(!isMounted) {
+    if (!isMounted) {
         return null;
     }
 
@@ -93,25 +100,29 @@ export const InitialModal = () => {
                                     name="imageUrl"
                                     render={({ field }) => (
                                         <FormItem>
-                                          <FormControl>
-                                            TODO: upload photot here
-                                          </FormControl>
+                                            <FormControl>
+                                                <FileUpload
+                                                    endpoint="serverImage"
+                                                    value={field.value}
+                                                    onChange={field.onChange}
+                                                />
+                                            </FormControl>
                                         </FormItem>
                                     )}
                                 />
                             </div>
 
-                            <FormField 
+                            <FormField
                                 control={form.control}
                                 name="name"
-                                render={({field}) => (
+                                render={({ field }) => (
                                     <FormItem>
                                         <FormLabel className="uppercase text-xs font-bold text-zinc-500 dark:text-secondary/70">
                                             Server Name
                                         </FormLabel>
 
                                         <FormControl>
-                                            <Input 
+                                            <Input
                                                 disabled={isLoading}
                                                 placeholder="Enter server name"
                                                 {...field}
