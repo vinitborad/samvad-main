@@ -2,7 +2,7 @@ import { Server, Channel, ChannelType } from "@prisma/client"
 import { create } from "zustand"
 //WHY : what is zustand
 
-export type ModalType = "createServer";
+export type ModalType = "createServer" | "invite" | "editServer";
 
 interface ModalData {
     server?: Server;
