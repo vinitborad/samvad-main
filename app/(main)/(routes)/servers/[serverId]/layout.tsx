@@ -44,7 +44,7 @@ const ServerIdLayout = async ({
                   serverId={params.serverId}
                 />
             </div>
-            <main>
+            <main className="h-full md:pl-60">
                 {children}
             </main>
         </div>

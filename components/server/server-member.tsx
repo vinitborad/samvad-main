@@ -4,7 +4,7 @@ import { Member, MemberRole, Profile, Server } from "@prisma/client"
 import { UserAvatar } from "../user-avatar"
 import { ShieldAlert, ShieldCheck } from "lucide-react"
 import { cn } from "@/lib/utils"
-import { useParams } from "next/navigation"
+import { useParams, useRouter } from "next/navigation"
 
 
 
@@ -26,11 +26,12 @@ export const ServerMember = ({
     server
 }: ServerMemberProps) => {
     const params = useParams();
+    const router = useRouter();
 
     const icon = roleIconMap[member.role];
 
     const onClick = () => {
-
+        router.push(`/servers/${params?.serverId}/conversations/${member.id}`);
     } 
 
     return (
