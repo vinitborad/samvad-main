@@ -80,14 +80,14 @@ export const EditServerModal = () => {
 
   return (
     <Dialog open={isModalOpen} onOpenChange={handleClose}>
-      <DialogContent className="bg-white text-black p-0 overflow-hidden">
+      <DialogContent className="bg-[#FEFCF3] text-black p-0 overflow-hidden">
         <DialogHeader className="pt-8 px-6">
-          <DialogTitle className="text-2xl text-center font-bold">
-            Customize your server
+          <DialogTitle className="text-2xl text-center font-bold mb-3">
+            Customize Your Server
           </DialogTitle>
-          <DialogDescription className="text-center text-zinc-500">
+          {/* <DialogDescription className="text-center text-zinc-500">
             Give your server a personality with a name and an image. You can always change it later.
-          </DialogDescription>
+          </DialogDescription> */}
         </DialogHeader>
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
@@ -133,7 +133,7 @@ export const EditServerModal = () => {
                 )}
               />
             </div>
-            <DialogFooter className="bg-gray-100 px-6 py-4">
+            <DialogFooter className="bg-[#F0DBDB] px-6 py-4">
               <Button variant="primary" disabled={isLoading}>
                 Save
               </Button>
